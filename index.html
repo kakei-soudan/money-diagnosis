@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>子育て世帯お金診断</title>
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f6f7f9;
+      margin: 0;
+      padding: 16px;
+      color: #222;
+    }
+
+    .container {
+      max-width: 560px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .lead {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      margin-top: 28px;
+      font-weight: bold;
+      font-size: 16px;
+      border-left: 4px solid #06c755;
+      padding-left: 8px;
+    }
+
+    .question {
+      margin-top: 20px;
+    }
+
+    .question-title {
+      font-weight: bold;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+
+    label {
+      display: block;
+      background: #f2f4f6;
+      margin: 8px 0;
+      padding: 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    input[type="radio"] {
+      margin-right: 8px;
+    }
+
+    button {
+      width: 100%;
+      border: none;
+      border-radius: 999px;
+      padding: 15px;
+      margin-top: 28px;
+      background: #06c755;
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      background: #aaa;
+    }
+
+    .status {
+      margin-top: 16px;
+      text-align: center;
+      color: #555;
+      font-size: 14px;
+      line-height: 1.6;
+      white-space: pre-line;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>子育て世帯お金診断</h1>
+    <div class="lead">
+      お子さまの教育費や将来のお金の準備状況を診断します。<br>
+      12個の質問に答えるだけで、教育費・家計・資産形成・保障バランスを診断できます。
+    </div>
+
+    <form id="diagnosisForm">
+      <div class="section-title">セクション1：教育費準備状況</div>
+
+      <div class="question">
+        <div class="question-title">Q1. お子さまの人数を教えてください</div>
+        <label><input type="radio" name="childrenCount" value="1人" required>1人</label>
+        <label><input type="radio" name="childrenCount" value="2人">2人</label>
+        <label><input type="radio" name="childrenCount" value="3人">3人</label>
+        <label><input type="radio" name="childrenCount" value="4人以上">4人以上</label>
+      </div>
+
+      <div class="question">
+        <div class="question-title">Q2. 一番上のお子さまの年齢を教えてください</div>
+        <label><input type="radio" name="oldestChildAge" value="0～2歳" required>0～2歳</label>
+        <label><input type="radio" name="oldestChildAge" value="3～5歳">3～5歳</label>
+        <label><input type="radio" name="oldestChildAge" value="小学生">小学生</label>
+        <label><input type="radio" name="oldestChildAge" value="中学生">中学生</label>
+        <label><input type="radio" name="oldestChildAge" value="高校生">高校生</label>
+        <label><input type="radio" name="oldestChildAge" value="大学生以上">大学生以上</label>
+      </div>
+
+      <div class="question">
+        <div class="question-title">Q3. お子さまに希望している進路を教えてください</div>
+        <label><input type="radio" name="educationPlan" value="公立中心" required>公立中心</label>
+        <label><input type="radio" name="educationPlan" value="高校までは公立、大学は私立も検討">高校までは公立、大学は私立も検討</label>
+        <label><input type="radio" name="educationPlan" value="私立中心">私立中心</label>
+        <label><input type="radio" name="educationPlan" value="まだ決めていない">まだ決めていない</label>
+      </div>
+
+      <div class="question">
+        <div class="question-title">Q4. 現在の教育費準備額はどのくらいですか？</div>
+        <label><input type="radio" name="educationSavings" value="300万円以上" required>300万円以上</label>
+        <label><input type="radio" name="educationSavings" value="100～300万円">100～300万円</label>
+        <label><input type="radio" name="educationSavings" value="50～100万円">50～100万円</label>
+        <label><input type="radio" name="educationSavings" value="50万円未満">50万円未満</label>
+      </div>
+
+      <div class="question">
+        <div class="question-title">Q5. 教育費のために毎月どのくらい積み立てていますか？</div>
+        <label><input type="radio" name="monthlyEducationSaving" value="月3万円以上" required>月3万円以上</label>
+        <label><input type="radio" name="monthlyEducationSaving" value="月1～3万円">月1～3万円</label>
+        <label><input type="radio" name="monthlyEducationSaving" value="月1万円未満">月1万円未満</label>
+        <label><input type="radio" name="monthlyEducationSaving" value="積立していない">積立していない</label>
+      </div>
+
+      <div class="section-title">セクション2：家計・資産形成</div>
+
+      <div class="question">
+        <div class="question-title">Q6. NISAの利用状況を教えてください</div>
+        <label><input type="radio" name="nisaStatus" value="積立投資を継続している" required>積立投資を継続している</label>
+        <label><input type="radio" name="nisaStatus" value="1年以上継続している">1年以上継続している</label>
+        <label><input type="radio" name="nisaStatus" value="最近始めた">最近始めた</label>
+        <label><input type="radio" name="nisaStatus" value="利用していない">利用していない</label>
+      </div>
+
+      <div class="question">
+        <div class="question-title">Q7. 世帯年収を教えてください</div>
+        <label><input type="radio" name="householdIncome" value="1,000万円以上" required>1,000万円以上</label>
+        <label><input type="radio" name="householdIncome" value="800～1,000万円">800～1,000万円</label>
+        <label><input type="radio" name="householdIncome" value="600～800万円">600～800万円</label>
+        <label><input type="radio" name="householdIncome" value="400～600万円">400～600万円</label>
+        <label><input type="radio" name="householdIncome" value="400万円未満">400万円未満</label>
+      </div>
+
+      <div class="question">
+        <div class="question-title">Q8. 毎月の貯蓄額を教えてください</div>
+        <label><input type="radio" name="monthlySavings" value="5万円以上" required>5万円以上</label>
+        <label><input type="radio" name="monthlySavings" value="3～5万円">3～5万円</label>
+        <label><input type="radio" name="monthlySavings" value="1～3万円">1～3万円</label>
+        <label><input type="radio" name="monthlySavings" value="1万円未満">1万円未満</label>
+        <label><input type="radio" name="monthlySavings" value="貯蓄できていない">貯蓄できていない</label>
+      </div>
+
+      <div class="section-title">セクション3：保障・お悩み</div>
+
+      <div class="question">
+        <div class="question-title">Q9. 万が一の場合の保障（生命保険等）は準備できていますか？</div>
+        <label><input type="radio" name="insurancePrepared" value="十分準備できていると思う" required>十分準備できていると思う</label>
+        <label><input type="radio" name="insurancePrepared" value="準備しているが十分か分からない">準備しているが十分か分からない</label>
+        <label><input type="radio" name="insurancePrepared" value="最低限しか準備していない">最低限しか準備していない</label>
+        <label><input type="radio" name="insurancePrepared" value="準備していない">準備していない</label>
+      </div>
+
+      <div class="question">
+        <div class="question-title">Q10. 現在加入している保険内容を把握していますか？</div>
+        <label><input type="radio" name="insuranceUnderstanding" value="内容と保障額を理解している" required>内容と保障額を理解している</label>
+        <label><input type="radio" name="insuranceUnderstanding" value="ある程度理解している">ある程度理解している</label>
+        <label><input type="radio" name="insuranceUnderstanding" value="あまり理解していない">あまり理解していない</label>
+        <label><input type="radio" name="insuranceUnderstanding" value="分からない">分からない</label>
+      </div>
+
+      <div class="question">
+        <div class="question-title">Q11. 教育費や将来のお金についてどの程度不安がありますか？</div>
+        <label><input type="radio" name="moneyAnxiety" value="十分準備できていると思う" required>十分準備できていると思う</label>
+        <label><input type="radio" name="moneyAnxiety" value="おおむね準備できていると思う">おおむね準備できていると思う</label>
+        <label><input type="radio" name="moneyAnxiety" value="少し不安がある">少し不安がある</label>
+        <label><input type="radio" name="moneyAnxiety" value="かなり不安がある">かなり不安がある</label>
+        <label><input type="radio" name="moneyAnxiety" value="何から始めればよいか分からない">何から始めればよいか分からない</label>
+      </div>
+
+      <div class="question">
+        <div class="question-title">Q12. 今後知りたい内容を教えてください</div>
+        <label><input type="radio" name="interestTheme" value="教育費の準備方法" required>教育費の準備方法</label>
+        <label><input type="radio" name="interestTheme" value="NISAの活用方法">NISAの活用方法</label>
+        <label><input type="radio" name="interestTheme" value="保険の見直し">保険の見直し</label>
+        <label><input type="radio" name="interestTheme" value="家計改善">家計改善</label>
+        <label><input type="radio" name="interestTheme" value="老後資金">老後資金</label>
+        <label><input type="radio" name="interestTheme" value="全体的に相談したい">全体的に相談したい</label>
+      </div>
+
+      <button type="submit" id="submitBtn">診断する</button>
+      <div class="status" id="status"></div>
+    </form>
+  </div>
+
+  <script>
+    const LIFF_ID = '2008233819-nZLRf7j1';
+    const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzwOooVRqPNTv607ogbQI36EuUqIFXxyu-levRAkA4ut97_T3pwEc8FwC6BnxLWflRy/exec';
+
+    let lineUserId = '';
+
+    async function initLiff() {
+      try {
+        await liff.init({ liffId: LIFF_ID });
+
+        if (!liff.isLoggedIn()) {
+          liff.login();
+          return;
+        }
+
+        const profile = await liff.getProfile();
+        lineUserId = profile.userId;
+
+      } catch (error) {
+        document.getElementById('status').innerText =
+          'LINE認証でエラーが発生しました。LINEアプリから開いてください。';
+        console.error(error);
+      }
+    }
+
+    function getFormData() {
+      const form = document.getElementById('diagnosisForm');
+      const data = Object.fromEntries(new FormData(form).entries());
+      data.lineUserId = lineUserId;
+      return data;
+    }
+
+    document.getElementById('diagnosisForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const btn = document.getElementById('submitBtn');
+      const status = document.getElementById('status');
+
+      if (!lineUserId) {
+        status.innerText = 'LINEユーザー情報を取得できていません。LINEアプリから再度開いてください。';
+        return;
+      }
+
+      btn.disabled = true;
+      status.innerText = '診断結果を作成しています。\nこのまま少しお待ちください。';
+
+      const data = getFormData();
+
+      try {
+        await fetch(GAS_WEB_APP_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'text/plain'
+          },
+          body: JSON.stringify(data)
+        });
+
+        status.innerText = '診断結果をLINEへ送信しました。\nトーク画面をご確認ください。';
+
+        setTimeout(() => {
+          if (liff.isInClient()) {
+            liff.closeWindow();
+          }
+        }, 1800);
+
+      } catch (err) {
+        console.error(err);
+        status.innerText = 'エラーが発生しました。時間をおいて再度お試しください。';
+        btn.disabled = false;
+      }
+    });
+
+    initLiff();
+  </script>
+</body>
+</html>
